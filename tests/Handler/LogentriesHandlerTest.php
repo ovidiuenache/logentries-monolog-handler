@@ -4,12 +4,15 @@ use Mockery as m;
 use Monolog\Logger;
 use Logentries\Handler\LogentriesHandler;
 
-class LogentriesHandlerTest extends \PHPUnit_Framework_TestCase
+final class LogentriesHandlerTest extends \PHPUnit_Framework_TestCase
 {
-	private $log;
-	private $socketMock;
+	private Logger $log;
+	private m\MockInterface $socketMock;
 
-	public function setUp()
+    /**
+     * {@inheritDoc}
+     */
+	public function setUp(): void
 	{
 		$this->socketMock = m::mock('Logentries\Socket');
 
@@ -17,12 +20,12 @@ class LogentriesHandlerTest extends \PHPUnit_Framework_TestCase
 		$this->log->pushHandler(new LogentriesHandler('testToken', Logger::DEBUG, true, $this->socketMock));
 	}
 
-	public function tearDown()
+	public function tearDown(): void
 	{
 		m::close();
 	}
 
-	public function testWarning()
+	public function testWarning(): void
 	{
 		$this->socketMock->shouldReceive('write')
 						 ->once()
@@ -30,5 +33,4 @@ class LogentriesHandlerTest extends \PHPUnit_Framework_TestCase
 
 		$this->log->addWarning('Foo');
 	}
-
 }
