@@ -1,5 +1,5 @@
 {
-    "name": "logentries/logentries-monolog-handler",
+    "name": "ovidiuenache/logentries-monolog-handler",
     "description": "A handler for Monolog that sends messages to Logentries.com.",
     "keywords": ["log", "logging", "monolog", "logentries", "laravel", "symfony"],
     "homepage": "https://github.com/logentries/logentries-monolog-handler",
