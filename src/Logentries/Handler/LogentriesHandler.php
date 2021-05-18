@@ -7,11 +7,11 @@ use Monolog\Handler\AbstractProcessingHandler;
 /**
 *  VERSION: 2.0
 */
-
 class LogentriesHandler extends AbstractProcessingHandler
 {
-	private $token;
-	private $socket;
+	protected string $token;
+
+	protected Socket $socket;
 
 	/**
 	 * @param string  $token  Token UUID for Logentries logfile
@@ -20,31 +20,31 @@ class LogentriesHandler extends AbstractProcessingHandler
 	 */
 	public function __construct($token, $level = Logger::DEBUG, $bubble = true, Socket $socket = null)
 	{
-		$this->token = $token;
-		$this->socket = $socket;
-
-		if ( ! $this->socket)
-		{
-			$this->socket = new Socket('data.logentries.com', 80);
-		}
+		$this->token  = $token;
+		$this->socket = $socket ?? new Socket('data.logentries.com', 80);
 
 		parent::__construct($level, $bubble);
 	}
 
-	protected function write(array $record)
+    /**
+     * {@inheritDoc}
+     */
+	protected function write(array $record): void
 	{
 		$data = $this->generateDataStream($record);
 		$this->socket->write($data);
 	}
 
-	public function close()
+    /**
+     * {@inheritDoc}
+     */
+	public function close(): void
 	{
 		$this->socket->close();
 	}
 
-	private function generateDataStream(array $record)
+	private function generateDataStream(array $record): string
 	{
-		return sprintf("%s %s\n", $this->token, $record['formatted']);
+		return \sprintf("%s %s\n", $this->token, $record['formatted']);
 	}
-
 }
