@@ -1,4 +1,6 @@
-<?php namespace Logentries;
+<?php
+
+namespace Logentries;
 
 class Socket
 {
@@ -11,8 +13,8 @@ class Socket
 
 	public function __construct($url, $port)
 	{
-		$this->url               = $url;
-		$this->port              = $port;
+		$this->url = $url;
+		$this->port = $port;
 		$this->connectionTimeout = (float) \ini_get('default_socket_timeout');
 	}
 
@@ -102,6 +104,6 @@ class Socket
 
 	private function isConnected(): bool
 	{
-		return \is_resource($this->resource) && !\feof($this->resource); // on TCP - other party can close connection.
+		return \is_resource($this->resource) && !\feof($this->resource);
 	}
 }
