@@ -12,11 +12,15 @@
         {
             "name": "Mark Lacomber",
             "email": "marklacomber@gmail.com"
+        },
+        {
+            "name": "Ioan Ovidiu Enache",
+            "email": "i.ovidiuenache@yahoo.com"
         }
     ],
     "require": {
-        "php": ">=7.4",
-        "monolog/monolog": ">=1.4"
+        "php": ">=8.0" ,
+        "monolog/monolog": "^3.2"
     },
     "require-dev": {
         "mockery/mockery": "dev-master"
